@@ -47,7 +47,6 @@ class Frame:
                 raise Exception(error_text)
 
     async def __get_image_path(self) -> str:
-        print('Вошел')
         img_path = await self._get_dict(
             url=config.uri_info.replace(
                 'BOT_TOKEN',
@@ -57,7 +56,6 @@ class Frame:
         return img_path['result']['file_path']
 
     async def __get_image_info(self, img_path) -> bytes:
-        print('Вошел')
         img = await self._get_content(
             url=config.uri.replace(
                 'BOT_TOKEN',
