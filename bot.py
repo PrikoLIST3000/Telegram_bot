@@ -1,23 +1,23 @@
 import asyncio
 from aiogram import Bot
 from config_reader import config
-from handlers import weather, photo
+from handlers import weather, photo, quiz
 from handlers.dispatcher import dispatcher
 from utils.logger import logger
-from database.engine import create_db, drop_db, session_maker
+from database.engine import create_db, drop_db
 
 
 bot = Bot(token=config.bot_token.get_secret_value(), parse_mode="HTML")
 dp = dispatcher
-dp.include_routers(weather.router, photo.router)
+dp.include_routers(weather.router, photo.router, quiz.router)
 
 
-async def on_startup(bot):
+async def on_startup():
     logger.info('Бот начал работу')
     await create_db()
 
 
-async def on_shutdown(bot):
+async def on_shutdown():
     logger.info('Бот завершил работу')
     await drop_db()
 

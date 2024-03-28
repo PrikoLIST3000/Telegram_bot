@@ -1,5 +1,5 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import DateTime, String, func
+from sqlalchemy import DateTime, String, Boolean, func
 
 
 class Base(DeclarativeBase):
@@ -13,3 +13,4 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     full_name: Mapped[str] = mapped_column(String(50))
     username: Mapped[str] = mapped_column(String(50))
+    complete_quiz: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)

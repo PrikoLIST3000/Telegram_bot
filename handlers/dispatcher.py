@@ -10,6 +10,7 @@ from middlewares.db import DataBaseSession
 from database.engine import session_maker
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.models import User
+from sqlalchemy import select
 # from aiogram.fsm.state import StatesGroup, State
 
 
@@ -23,12 +24,15 @@ dispatcher.update.middleware(DataBaseSession(session_pool=session_maker))
 @dispatcher.message(Command("start"))
 async def start(message: Message, state: FSMContext, session: AsyncSession) -> None:
     await state.clear()
-    session.add(User(
-        id=message.from_user.id,
-        full_name=message.from_user.full_name,
-        username=message.from_user.username)
-    )
-    await session.commit()
+    query = select(User.id).where(User.id == message.from_user.id)
+    result = await session.execute(query)
+    if result.scalar() is None:
+        session.add(User(
+            id=message.from_user.id,
+            full_name=message.from_user.full_name,
+            username=message.from_user.username)
+        )
+        await session.commit()
     await message.answer("Выберите действие:", reply_markup=get_start_kb())
 
 
