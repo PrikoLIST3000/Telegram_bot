@@ -6,18 +6,29 @@ from middlewares.actions import SaveMessageInLogMiddleware
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state
+from middlewares.db import DataBaseSession
+from database.engine import session_maker
+from sqlalchemy.ext.asyncio import AsyncSession
+from database.models import User
 # from aiogram.fsm.state import StatesGroup, State
 
 
 dispatcher = Dispatcher()
 dispatcher.message.middleware(SaveMessageInLogMiddleware())
+dispatcher.update.middleware(DataBaseSession(session_pool=session_maker))
 #   dispatcher.message.middleware(ChatActionMiddleware())
 
 
 @dispatcher.message(F.text.lower() == "главное меню")
 @dispatcher.message(Command("start"))
-async def start(message: Message, state: FSMContext) -> None:
+async def start(message: Message, state: FSMContext, session: AsyncSession) -> None:
     await state.clear()
+    session.add(User(
+        id=message.from_user.id,
+        full_name=message.from_user.full_name,
+        username=message.from_user.username)
+    )
+    await session.commit()
     await message.answer("Выберите действие:", reply_markup=get_start_kb())
 
 

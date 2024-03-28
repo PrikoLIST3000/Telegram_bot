@@ -5,8 +5,6 @@ from aiogram.types import CallbackQuery
 
 from utils.logger import logger
 
-from utils.weather import Weather
-
 
 class SaveMessageInLogMiddleware(BaseMiddleware):
 

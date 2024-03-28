@@ -64,7 +64,7 @@ class Frame:
         )
         return img
 
-    async def __get_image(self):
+    async def __get_image(self) -> bytes:
         path = await self.__get_image_path()
         info = await self.__get_image_info(path)
         return info
@@ -76,6 +76,10 @@ class Frame:
         img_path = f'photos/{self.img_name}.png'
         img.save(img_path, format="PNG")
         return img_path
+
+    @staticmethod
+    def img_delete(img_path: str) -> None:
+        os.remove(img_path)
 
     async def create_frame(self) -> str:
         img = await self.__get_image()

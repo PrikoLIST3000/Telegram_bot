@@ -8,7 +8,7 @@ def get_start_kb() -> ReplyKeyboardMarkup:
         KeyboardButton(text="Погода"),
         KeyboardButton(text="Работа с фото")
     )
-#    kb.row(KeyboardButton(text="Прохождение теста"))
+    kb.row(KeyboardButton(text="Прохождение теста"))
     return kb.as_markup(
         resize_keyboard=True,
         input_field_placeholder='Выберите действие',
