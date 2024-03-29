@@ -85,6 +85,6 @@ async def answer_q5(message: Message, state: FSMContext, session: AsyncSession):
         await state.update_data(correct_answers=data['correct_answers'] + 1)
     data = await state.get_data()
     await message.answer(f"Поздравляем! Вы дали {data['correct_answers']} правильных ответов из 5.",
-                         reply_markup=get_menu_kb())
+                         reply_markup=(get_menu_kb()))
     await orm_update_user_quiz_state(session, message.from_user.id)
     await state.clear()

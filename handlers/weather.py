@@ -37,5 +37,5 @@ async def another_city(message: Message, state: FSMContext) -> None:
         await message.answer(await weather.answer(), reply_markup=get_menu_kb())
         await state.clear()
     except Exception:
-        await message.reply("Проверьте название города", reply_markup=get_weather_kb())
+        await message.reply("Проверьте название города", reply_markup=(get_weather_kb()))
         await state.set_state(CityChoose.choosing_city)
