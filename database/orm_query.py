@@ -1,6 +1,5 @@
-from sqlalchemy import select, update, delete, column
+from sqlalchemy import select, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.sql.expression import FromClause
 
 from database.models import User
 

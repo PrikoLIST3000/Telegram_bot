@@ -4,7 +4,7 @@ from utils.logger import logger
 
 
 class WeatherException(Exception):
-    """Исключение для ошибок апи погоды"""
+    ...
 
 
 class Weather:

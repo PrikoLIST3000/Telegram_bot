@@ -10,13 +10,11 @@ from middlewares.db import DataBaseSession
 from database.engine import session_maker
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.orm_query import orm_add_user, orm_get_user
-# from aiogram.fsm.state import StatesGroup, State
 
 
 dispatcher = Dispatcher()
 dispatcher.message.middleware(SaveMessageInLogMiddleware())
 dispatcher.update.middleware(DataBaseSession(session_pool=session_maker))
-#   dispatcher.message.middleware(ChatActionMiddleware())
 
 
 @dispatcher.message(F.text.lower() == "главное меню")

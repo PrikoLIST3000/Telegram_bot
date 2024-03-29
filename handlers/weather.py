@@ -6,7 +6,6 @@ from aiogram.types import Message
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
-# from middlewares.actions import IsItCityMiddleware
 
 available_city_names = ['Москва', 'Санкт-Петербург']
 
@@ -16,7 +15,6 @@ class CityChoose(StatesGroup):
 
 
 router = Router()
-# router.message.middleware(IsItCityMiddleware())
 
 
 @router.message(StateFilter(None), F.text.lower() == "погода")
