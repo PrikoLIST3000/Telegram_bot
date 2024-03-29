@@ -24,7 +24,8 @@ async def start(message: Message, state: FSMContext, session: AsyncSession) -> N
     check_user = await orm_get_user(session, message.from_user.id)
     if check_user is None:
         await orm_add_user(
-            id=message.from_user.id,
+            session=session,
+            user_id=message.from_user.id,
             full_name=message.from_user.full_name,
             username=message.from_user.username
         )
